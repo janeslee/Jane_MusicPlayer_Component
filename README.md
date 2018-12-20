@@ -1,1 +1,1 @@
-# Jane_Player_Component
+# Jane_MusicPlayer_Component
