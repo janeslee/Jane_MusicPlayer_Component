@@ -10,6 +10,7 @@ server.use(express.static(__dirname + '/../client/dist'));
 
 server.listen(3000, () => { console.log('listening to port 3000') });
 
+//example POST request to verify database connection
 server.post('/api/jane/player/', (req, res) => {
   db.songs.create({ 
     title: req.body.title
