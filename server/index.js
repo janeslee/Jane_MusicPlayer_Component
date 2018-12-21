@@ -19,4 +19,11 @@ server.post('/api/jane/player/', (req, res) => {
   .catch(error => { console.error(error) });
 });
 
+//GET request to fetch a new song data from db
+server.get('/api/jane/player/', (req, res) => {
+  db.songs.findById(req.body.id)
+  .then(data => { res.send(data).status(200) })
+  .catch(error => { console.error(error) });
+});
+
 module.exports = server;
