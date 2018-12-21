@@ -10,7 +10,6 @@ var randomSongs = [
   'https://s3-us-west-1.amazonaws.com/democrituscloud/bensound-jazzyfrenchy.mp3'
 ];
 
-//seed db with randomly generated data
 var randomTitles = [];
 var randomArtists = [];
 var randomAlbums = [];
@@ -52,9 +51,15 @@ dataGenerator('released', randomReleased);
 dataGenerator('duration', randomDuration);
 dataGenerator('image', randomImage);
 
-//create a function to generate random wave data
-
-
+//create a function to generate random wave data in string form, later to be split into an array
+waveGenerator = () => {
+  var waves = '';
+  for (var i = 0; i <= 1000; i++) {
+    var wave = Math.floor((Math.random() * 120));
+    waves += `${wave},`;
+  }
+  return waves;
+};
 
 //create an entry for each item in the db
 for (var i = 0; i <= 100; i++) {    
@@ -64,7 +69,7 @@ for (var i = 0; i <= 100; i++) {
     album: randomAlbums[i],
     released: randomReleased[i],
     duration: randomDuration[i],
-    // wave: 
+    wave: waveGenerator(),
     image: randomImage[i],
     song_url: randomSongs[Math.floor(Math.random() * 5)]
   });
