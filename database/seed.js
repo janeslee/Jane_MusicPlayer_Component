@@ -1,9 +1,14 @@
 const faker = require('faker');
 const db = require('./index');
 
-//have one song to be played for every song ID but every song ID will have different wave form
-
-
+//alternate between 5 songs to be played for each data, but each data will have diff. wave form
+var randomSongs = [
+  'https://s3-us-west-1.amazonaws.com/democrituscloud/Despacito.mp3',
+  'https://s3-us-west-1.amazonaws.com/democrituscloud/Pokemon_Theme_Song.mp3',
+  'https://s3-us-west-1.amazonaws.com/democrituscloud/RASPUTIN_-_Funk_Overload.mp3',
+  'https://s3-us-west-1.amazonaws.com/democrituscloud/bensound-dubstep.mp3',
+  'https://s3-us-west-1.amazonaws.com/democrituscloud/bensound-jazzyfrenchy.mp3'
+];
 
 //seed db with randomly generated data
 var randomTitles = [];
@@ -59,7 +64,8 @@ for (var i = 0; i <= 100; i++) {
     album: randomAlbums[i],
     released: randomReleased[i],
     duration: randomDuration[i],
-    image: randomImage[i]
-    //song_url: should point to the same url for every data
+    // wave: 
+    image: randomImage[i],
+    song_url: randomSongs[Math.floor(Math.random() * 5)]
   });
 }
