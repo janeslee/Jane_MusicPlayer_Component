@@ -22,9 +22,7 @@ dataGenerator = (type, array) => {
       var randomData = faker.name.findName();
     }
     if (type === "released") {
-      var randomData = faker.date.past({
-        
-      })
+      var randomData = faker.date.past();
     }
     if (type === "duration") {
       var randomData = faker.random.number({
