@@ -34,7 +34,7 @@ dataGenerator = (type, array) => {
     if (type === 'duration') {
       randomData = faker.random.number({
         'min': 100,
-        'max': 400
+        'max': 300
       });
     }
     if (type === 'image') {
