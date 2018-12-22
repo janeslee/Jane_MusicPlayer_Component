@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Equalizer from './components/equalizer.jsx';
+import MusicPlayer from './components/MusicPlayer.jsx';
 
-ReactDOM.render(<Equalizer />, document.getElementById('root'));
+ReactDOM.render(<MusicPlayer />, document.getElementById('root'));
