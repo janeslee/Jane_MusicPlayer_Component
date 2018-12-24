@@ -1,12 +1,13 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
 import styles from '../styles/MusicPlayer.css';
+// import axios from 'axios';
 
 class MusicPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      playButton: 'https://s3-us-west-1.amazonaws.com/democrituscloud/soundcloud-play-button-508x509.jpg'
+      playButton: 'https://s3-us-west-1.amazonaws.com/democrituscloud/pause.png'
     }
   }
 
@@ -14,9 +15,9 @@ class MusicPlayer extends React.Component {
     return(
       <div>
         <h1>Rendering from Music Player</h1>
-        <div styleName='playButton'>
+        <button styleName='playButton'>
           <img src={this.state.playButton} />
-        </div>
+        </button>
       </div>
     )
   }
