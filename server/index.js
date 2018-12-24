@@ -15,7 +15,7 @@ server.listen(3000, () => { console.log('listening to port 3000'); });
 server.get('/api/jane/player/', (req, res) => {
   db.songs.findById(req.body.id)
     .then((data) => { res.send(data).status(200); })
-    .catch((error) => { console.error(error); });
+    .catch((error) => { res.send(error).status(500); });
 });
 
 module.exports = server;
