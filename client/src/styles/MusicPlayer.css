@@ -1,4 +1,8 @@
-.playButton {
-  width: 6px;
-  height: 2px;
+.Button {
+  width: 65px;
+  height: 65px;
+}
+
+.Button:hover {
+  cursor: pointer;
 }
