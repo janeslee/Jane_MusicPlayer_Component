@@ -12,27 +12,45 @@ class MusicPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      play: false,
-      artist: '',
-      title: '',
-      album: '',
-      released: '',
-      song_url: '',
-      image: ''
+      'play': false,
+      'album': '',
+      'artist': '',
+      'duration': '',
+      'id': 1,
+      'image': '',
+      'released': '',
+      'song_url': '',
+      'title': '',
+      'wave': ''
     }
+    this.fetchSong = this.fetchSong.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
     this.playStatus = this.playStatus.bind(this);
   }
 
-  // componentDidMount() {
-  //   axios.get('/api/jane/player/:id')
-  //   .then((response) => {    
-  //     console.log('this is response', response.data);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error)
-  //   });
-  // }
+  componentDidMount() {
+    this.fetchSong();
+  }
+
+  fetchSong() {
+    axios.get(`/api/jane/player/${this.state.id}`)
+    .then((response) => {   
+      this.setState({
+        album: response.data.album,
+        artist: response.data.artist,
+        duration: response.data.duration,
+        id: response.data.id,
+        image: response.data.image,
+        released: response.data.released,
+        song_url: response.data['song_url'],
+        title: response.data.title,
+        wave: response.data.wave
+      });
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+  }
 
   clickHandler(event) {
     this.setState({
@@ -62,10 +80,10 @@ class MusicPlayer extends React.Component {
           }
         </div>
         <div>
-          <p className={styles.ArtistAlbum}>PLACEHOLDER ARTIST</p>
-          <p className={styles.Title}>PLACEHOLDER TITLE</p>
-          <p className={styles.ArtistAlbum}>PLACEHOLDER ALBUM</p>
-          <p className={styles.Timestamp}>PLACEHOLDER TIMESTAMP</p>
+          <p className={styles.ArtistAlbum}>{this.state.artist}</p>
+          <p className={styles.Title}>{this.state.title}</p>
+          <p className={styles.ArtistAlbum}>{this.state.album}</p>
+          <p className={styles.Timestamp}>{this.state.released}</p>
         </div>
       </div>
     )
