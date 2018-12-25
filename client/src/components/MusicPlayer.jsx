@@ -2,6 +2,7 @@ import React from 'react';
 // import CSSModules from 'react-css-modules';
 import styles from '../styles/MusicPlayer.css';
 import axios from 'axios';
+import TimeAgo from 'react-timeago';
 
 const imagePaths = {
   pauseButton: 'https://s3-us-west-1.amazonaws.com/democrituscloud/pause.png',
@@ -83,7 +84,8 @@ class MusicPlayer extends React.Component {
           <p className={styles.ArtistAlbum}>{this.state.artist}</p>
           <p className={styles.Title}>{this.state.title}</p>
           <p className={styles.ArtistAlbum}>{this.state.album}</p>
-          <p className={styles.Timestamp}>{this.state.released}</p>
+          <TimeAgo date={this.state.released} className={styles.Timestamp}/>
+          <img src={this.state.image} />
         </div>
       </div>
     )
