@@ -1,3 +1,14 @@
+.MusicPlayer {
+  background: linear-gradient(to right, #ACACAC, #4A4A4A);
+  display: grid;
+  grid-template-columns: 40px 120px auto 40px 120px;
+  grid-template-rows: 25% auto 25%;
+  min-width: 800px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .Button {
   width: 65px;
   height: 65px;
@@ -5,4 +16,37 @@
 
 .Button:hover {
   cursor: pointer;
+}
+
+.ArtistAlbum {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: rgb(204, 204, 204);
+  cursor: pointer;
+  display: inline;
+  font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Garuda", "Verdana", "Tahoma, sans-serif"; 
+  font-size: 16px;
+  line-height: 1.2;
+  padding: 2px 7px 3px;
+}
+
+.Title {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: rgb(204, 204, 204);
+  display: inline;
+  font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Garuda", "Verdana", "Tahoma, sans-serif"; 
+  font-weight: 100;
+  font-size: 24px;
+  line-height: 37px;
+  padding: 4px 7px;
+}
+
+.Timestamp {
+  position: relatvie;
+  align-self: flex-end;
+  color: #fff;
+  font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Garuda", "Verdana", "Tahoma, sans-serif"; 
+  font-weight: 100;
+  font-size: 16px;
 }
