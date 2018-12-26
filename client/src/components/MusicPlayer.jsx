@@ -75,9 +75,9 @@ class MusicPlayer extends React.Component {
           {
             this.state.play
             ?
-            <img className={styles.Button} src={imagePaths.pauseButton} onClick={this.clickHandler} />
+            <img className={styles.Button} src={imagePaths.pauseButton} onClick={this.clickHandler}/>
             :
-            <img className={styles.Button} src={imagePaths.playButton} onClick={this.clickHandler} />
+            <img className={styles.Button} src={imagePaths.playButton} onClick={this.clickHandler}/>
           }
         </div>
         <div className={styles.SongInfoArea}>
@@ -88,9 +88,7 @@ class MusicPlayer extends React.Component {
         <div className={styles.TimeArea}>
           <TimeAgo date={this.state.released} className={styles.Timestamp}/>
         </div>
-        {/* <div className={styles.ImageArea}> */}
-        <img className={styles.Image} src={this.state.image} />
-        {/* </div> */}
+        <img className={styles.Image} src={this.state.image}/>
       </div>
     )
   }
