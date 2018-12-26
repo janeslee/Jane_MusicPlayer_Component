@@ -71,7 +71,7 @@ class MusicPlayer extends React.Component {
   render() {
     return(
       <div className={styles.MusicPlayer}>
-        <div>
+        <div className={styles.ButtonArea}>
           {
             this.state.play
             ?
@@ -80,13 +80,17 @@ class MusicPlayer extends React.Component {
             <img className={styles.Button} src={imagePaths.playButton} onClick={this.clickHandler} />
           }
         </div>
-        <div>
-          <p className={styles.ArtistAlbum}>{this.state.artist}</p>
-          <p className={styles.Title}>{this.state.title}</p>
-          <p className={styles.ArtistAlbum}>{this.state.album}</p>
-          <TimeAgo date={this.state.released} className={styles.Timestamp}/>
-          <img src={this.state.image} />
+        <div className={styles.SongInfoArea}>
+          <div className={styles.ArtistAlbum}>{this.state.artist}</div>
+          <div className={styles.Title}>{this.state.title}</div>
+          <div className={styles.ArtistAlbum}>{this.state.album}</div>
         </div>
+        <div className={styles.TimeArea}>
+          <TimeAgo date={this.state.released} className={styles.Timestamp}/>
+        </div>
+        {/* <div className={styles.ImageArea}> */}
+        <img className={styles.Image} src={this.state.image} />
+        {/* </div> */}
       </div>
     )
   }
