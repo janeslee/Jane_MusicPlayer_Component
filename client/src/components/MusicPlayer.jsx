@@ -20,13 +20,13 @@ class MusicPlayer extends React.Component {
       'id': 1,
       'image': '',
       'released': '',
-      'song_url': '',
+      'song_url': 'https://s3-us-west-1.amazonaws.com/democrituscloud/Despacito.mp3',
       'title': '',
       'wave': ''
     }
+    this.audio = new Audio(this.state['song_url']);
     this.fetchSong = this.fetchSong.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
-    this.playStatus = this.playStatus.bind(this);
   }
 
   componentDidMount() {
@@ -57,14 +57,10 @@ class MusicPlayer extends React.Component {
     this.setState({
       play: !this.state.play
     });
-    console.log(this.state.play);
-  }
-
-  playStatus() {
     if (this.state.play === true) {
-      //play music
+      this.audio.pause();
     } else {
-      //pause music
+      this.audio.play();
     }
   }
 
