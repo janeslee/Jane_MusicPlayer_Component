@@ -1,8 +1,11 @@
 import React from 'react';
 // import CSSModules from 'react-css-modules';
+// import Equalizer from './Equalizer.jsx';
+import App from './Equalizer.jsx';
 import styles from '../styles/MusicPlayer.css';
 import axios from 'axios';
 import TimeAgo from 'react-timeago';
+
 
 const imagePaths = {
   pauseButton: 'https://s3-us-west-1.amazonaws.com/democrituscloud/pause.png',
@@ -66,6 +69,7 @@ class MusicPlayer extends React.Component {
 
   render() {
     return(
+      <div>
       <div className={styles.MusicPlayer}>
         <div className={styles.ButtonArea}>
           {
@@ -85,7 +89,11 @@ class MusicPlayer extends React.Component {
           <TimeAgo date={this.state.released} className={styles.Timestamp}/>
         </div>
         <img className={styles.Image} src={this.state.image}/>
+        <div className={styles.Equalizer}>
+        </div>
       </div>
+              <App/>
+          </div>
     )
   }
 }

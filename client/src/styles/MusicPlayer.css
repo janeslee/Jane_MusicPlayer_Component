@@ -75,3 +75,8 @@
   grid-row: 2 / 5;
   cursor: pointer;
 }
+
+.Equalizer {
+  grid-column: 2 / 6;
+  grid-row: 4 / 5;
+}
