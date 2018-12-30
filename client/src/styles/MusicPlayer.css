@@ -80,3 +80,14 @@
   grid-column: 2 / 6;
   grid-row: 4 / 5;
 }
+
+.BarWrapper {
+  display: flex;
+  transform: rotateX(180deg);
+}
+
+.Bar {
+  width: 3px;
+  background: whitesmoke;
+  border-right: 0.1px solid grey;
+}

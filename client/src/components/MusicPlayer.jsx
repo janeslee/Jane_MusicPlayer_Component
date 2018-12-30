@@ -1,7 +1,6 @@
 import React from 'react';
 // import CSSModules from 'react-css-modules';
-// import Equalizer from './Equalizer.jsx';
-import App from './Equalizer.jsx';
+import Equalizer from './Equalizer.jsx';
 import styles from '../styles/MusicPlayer.css';
 import axios from 'axios';
 import TimeAgo from 'react-timeago';
@@ -25,7 +24,7 @@ class MusicPlayer extends React.Component {
       'released': '',
       'song_url': 'https://s3-us-west-1.amazonaws.com/democrituscloud/Despacito.mp3',
       'title': '',
-      'wave': ''
+      'wave': []
     }
     this.audio = new Audio(this.state['song_url']);
     this.fetchSong = this.fetchSong.bind(this);
@@ -48,7 +47,7 @@ class MusicPlayer extends React.Component {
         released: response.data.released,
         song_url: response.data['song_url'],
         title: response.data.title,
-        wave: response.data.wave
+        wave: response.data.wave.split(',')
       });
     })
     .catch((error) => {
@@ -70,30 +69,30 @@ class MusicPlayer extends React.Component {
   render() {
     return(
       <div>
-      <div className={styles.MusicPlayer}>
-        <div className={styles.ButtonArea}>
-          {
-            this.state.play
-            ?
-            <img className={styles.Button} src={imagePaths.pauseButton} onClick={this.clickHandler}/>
-            :
-            <img className={styles.Button} src={imagePaths.playButton} onClick={this.clickHandler}/>
-          }
-        </div>
-        <div className={styles.SongInfoArea}>
-          <div className={styles.ArtistAlbum}>{this.state.artist}</div>
-          <div className={styles.Title}>{this.state.title}</div>
-          <div className={styles.ArtistAlbum}>{this.state.album}</div>
-        </div>
-        <div className={styles.TimeArea}>
-          <TimeAgo date={this.state.released} className={styles.Timestamp}/>
-        </div>
-        <img className={styles.Image} src={this.state.image}/>
-        <div className={styles.Equalizer}>
-        </div>
-      </div>
-              <App/>
+        <div className={styles.MusicPlayer}>
+          <div className={styles.ButtonArea}>
+            {
+              this.state.play
+              ?
+              <img className={styles.Button} src={imagePaths.pauseButton} onClick={this.clickHandler}/>
+              :
+              <img className={styles.Button} src={imagePaths.playButton} onClick={this.clickHandler}/>
+            }
           </div>
+          <div className={styles.SongInfoArea}>
+            <div className={styles.ArtistAlbum}>{this.state.artist}</div>
+            <div className={styles.Title}>{this.state.title}</div>
+            <div className={styles.ArtistAlbum}>{this.state.album}</div>
+          </div>
+          <div className={styles.TimeArea}>
+            <TimeAgo date={this.state.released} className={styles.Timestamp}/>
+          </div>
+          <img className={styles.Image} src={this.state.image}/>
+          <div className={styles.Equalizer}>
+            <Equalizer wave={this.state.wave}/>
+          </div>    
+        </div>         
+      </div>
     )
   }
 }
