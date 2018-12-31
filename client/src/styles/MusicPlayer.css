@@ -1,5 +1,5 @@
 .MusicPlayer {
-  background: linear-gradient(to right, #ACACAC, #4A4A4A);
+  background: linear-gradient(to right, rgb(167, 161, 161), rgb(70, 68, 68));
   display: grid;
   grid-template-columns: 30px 10px 65px auto 150px 5px 350px 25px;
   grid-template-rows: 30px 65px 200px 80px 30px;
@@ -86,7 +86,30 @@
   transform: rotateX(180deg);
 }
 
+.BarWrapper:hover {
+  cursor: pointer;
+}
+
+.MirrorWrapper {
+  display: flex;
+}
+
+.MirrorWrapper:hover {
+  cursor: pointer;
+}
+
 .Bar {
+  width: 3px;
+  background: whitesmoke;
+  border-right: 0.1px solid grey;
+  margin-top: 1.3px;
+}
+
+.Bar:hover {
+  background: orange;
+}
+
+.Mirror {
   width: 3px;
   background: whitesmoke;
   border-right: 0.1px solid grey;

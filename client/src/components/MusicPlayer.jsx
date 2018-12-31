@@ -90,6 +90,7 @@ class MusicPlayer extends React.Component {
           <img className={styles.Image} src={this.state.image}/>
           <div className={styles.Equalizer}>
             <Equalizer wave={this.state.wave}/>
+            {this.state.duration}
           </div>    
         </div>         
       </div>
