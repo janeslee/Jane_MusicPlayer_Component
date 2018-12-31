@@ -1,10 +1,11 @@
 import React from 'react';
 // import CSSModules from 'react-css-modules';
-import Equalizer from './Equalizer.jsx';
+import Waves from './Waves.jsx';
 import styles from '../styles/MusicPlayer.css';
 import axios from 'axios';
 import TimeAgo from 'react-timeago';
 
+var audio;
 
 const imagePaths = {
   pauseButton: 'https://s3-us-west-1.amazonaws.com/democrituscloud/pause.png',
@@ -19,33 +20,43 @@ class MusicPlayer extends React.Component {
       'album': '',
       'artist': '',
       'duration': '',
+      'currentTime': '',
       'id': 1,
       'image': '',
       'released': '',
-      'song_url': 'https://s3-us-west-1.amazonaws.com/democrituscloud/Despacito.mp3',
+      'song': '',
       'title': '',
       'wave': []
     }
-    this.audio = new Audio(this.state['song_url']);
+    this.calculateDuration = this.calculateDuration.bind(this);
     this.fetchSong = this.fetchSong.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
+    this.songPlayed = this.songPlayed.bind(this);
   }
 
-  componentDidMount() {
-    this.fetchSong();
+  calculateDuration(length) {
+    var minutes = Math.floor(length / 60);
+    var seconds = (length - minutes * 60).toString().substr(0, 2);
+    var time = `${minutes}:${seconds}`;
+    return time;
   }
 
   fetchSong() {
     axios.get(`/api/jane/player/${this.state.id}`)
-    .then((response) => {   
+    .then((response) => { 
+      audio = new Audio(response.data['song_url']);
+      audio.addEventListener('loadedmetadata', () => {
+        this.setState({
+          duration: this.calculateDuration(audio.duration)
+        });
+      });
       this.setState({
         album: response.data.album,
         artist: response.data.artist,
-        duration: response.data.duration,
         id: response.data.id,
         image: response.data.image,
         released: response.data.released,
-        song_url: response.data['song_url'],
+        song: audio,
         title: response.data.title,
         wave: response.data.wave.split(',')
       });
@@ -55,15 +66,25 @@ class MusicPlayer extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.fetchSong();
+  }
+
   clickHandler(event) {
     this.setState({
       play: !this.state.play
     });
     if (this.state.play === true) {
-      this.audio.pause();
+      this.state.song.pause();
     } else {
-      this.audio.play();
+      this.state.song.play();
     }
+  }
+
+  songPlayed() {
+    this.setState({
+      currentTime: this.audio.currentTime()
+    })
   }
 
   render() {
@@ -89,8 +110,12 @@ class MusicPlayer extends React.Component {
           </div>
           <img className={styles.Image} src={this.state.image}/>
           <div className={styles.Equalizer}>
-            <Equalizer wave={this.state.wave}/>
-            {this.state.duration}
+            <Waves 
+              wave={this.state.wave} 
+              duration={this.state.duration}
+              play={this.state.play}
+              songPlayed={this.songPlayed}
+            />
           </div>    
         </div>         
       </div>
