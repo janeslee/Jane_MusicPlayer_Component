@@ -28,6 +28,7 @@ class MusicPlayer extends React.Component {
     this.calculateCurrentTime = this.calculateCurrentTime.bind(this);
     this.fetchSong = this.fetchSong.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
+    this.skipToSegment = this.skipToSegment.bind(this);
   }
 
   calculateTime(length) {
@@ -52,7 +53,7 @@ class MusicPlayer extends React.Component {
       audio = new Audio(response.data['song_url']);
       audio.addEventListener('loadedmetadata', () => {
         this.setState({
-          duration: this.calculateTime(audio.duration + 1)
+          duration: audio.duration
         });
       });
       this.setState({
@@ -98,13 +99,21 @@ class MusicPlayer extends React.Component {
       this.setState({
         currentTime: this.calculateCurrentTime(this.state.song.currentTime)
       });
-      if (this.state.duration === this.calculateCurrentTime(this.state.song.currentTime)) {
+      if (this.calculateTime(this.state.duration) === this.calculateCurrentTime(this.state.song.currentTime)) {
         audio.pause();
         this.setState({
           playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png'
         })
       }
-    }, 1000)
+    }, 1000);
+  }
+
+  skipToSegment(position) {
+    // jump to a new segment in the song based on the position in the wave form
+    audio.currentTime = position * (this.state.duration / 241);
+    this.setState({
+      currentTime: this.calculateCurrentTime(audio.currentTime)
+    });
   }
 
   render() {
@@ -129,6 +138,8 @@ class MusicPlayer extends React.Component {
               duration={this.state.duration}
               play={this.state.play}
               currentTime={this.state.currentTime}
+              skipToSegment={this.skipToSegment}
+              calculateTime={this.calculateTime}
             />
           </div>    
         </div>         

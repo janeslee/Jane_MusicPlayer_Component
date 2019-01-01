@@ -5,13 +5,6 @@ import style from '../styles/MusicPlayer.css';
 class Waves extends React.Component {
   constructor(props) {
     super(props);
-    this.clickHandler.bind(this);
-  }
-
-  clickHandler() {
-    console.log('this is clicked');
-    //should jump to a new segment in the song
-
   }
 
   render() {
@@ -26,20 +19,26 @@ class Waves extends React.Component {
           {this.props.wave.map((data, i) => 
             <div 
               className={styles.Bar} 
-              key={i} style={{ height: data }}
-              onClick={this.clickHandler}
+              key={i} 
+              style={{ height: data }}
+              onClick={() => this.props.skipToSegment(i)}
             >
             </div>
           )}
           <div className={style.DurationWrapper}>
             <div className={styles.Duration}> 
-              {this.props.duration}
+              {this.props.calculateTime(this.props.duration)}
             </div>
           </div>
         </div>
         <div className={styles.MirrorWrapper}>
           {this.props.wave.map((data, i) => 
-            <div className={styles.Mirror} key={i} style={{ height: data / 3 }}></div>
+            <div 
+            className={styles.Mirror} 
+            key={i} 
+            style={{ height: data / 3 }}
+            >
+            </div>
           )}
         </div>
       </div>
