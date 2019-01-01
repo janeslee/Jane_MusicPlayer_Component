@@ -18,6 +18,11 @@ class Waves extends React.Component {
     return (
       <div>
         <div className={styles.BarWrapper}>
+          <div className={style.DurationWrapper}>
+            <div className={styles.Duration}> 
+              {this.props.currentTime}
+            </div>
+          </div>
           {this.props.wave.map((data, i) => 
             <div 
               className={styles.Bar} 

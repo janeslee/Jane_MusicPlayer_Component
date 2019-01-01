@@ -19,7 +19,7 @@ class MusicPlayer extends React.Component {
       'play': false,
       'album': '',
       'artist': '',
-      'duration': '',
+      'duration': 0,
       'currentTime': '',
       'id': 1,
       'image': '',
@@ -28,17 +28,25 @@ class MusicPlayer extends React.Component {
       'title': '',
       'wave': []
     }
-    this.calculateDuration = this.calculateDuration.bind(this);
+    this.calculateTime = this.calculateTime.bind(this);
+    this.calculateCurrentTime = this.calculateCurrentTime.bind(this);
     this.fetchSong = this.fetchSong.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
-    this.songPlayed = this.songPlayed.bind(this);
   }
 
-  calculateDuration(length) {
+  calculateTime(length) {
+    // calculates song length and puts it in the right format
     var minutes = Math.floor(length / 60);
     var seconds = (length - minutes * 60).toString().substr(0, 2);
     var time = `${minutes}:${seconds}`;
     return time;
+  }
+
+  calculateCurrentTime(currentTime) {
+    var currentMin = parseInt(currentTime / 60) % 60;
+    var currentSec = (currentTime % 60).toFixed();
+    var currentTime = `${currentMin}:${currentSec < 10? "0" + currentSec : currentSec}`;
+    return currentTime;
   }
 
   fetchSong() {
@@ -47,7 +55,7 @@ class MusicPlayer extends React.Component {
       audio = new Audio(response.data['song_url']);
       audio.addEventListener('loadedmetadata', () => {
         this.setState({
-          duration: this.calculateDuration(audio.duration)
+          duration: this.calculateTime(audio.duration)
         });
       });
       this.setState({
@@ -71,20 +79,22 @@ class MusicPlayer extends React.Component {
   }
 
   clickHandler(event) {
+    // controls song play and pause
     this.setState({
-      play: !this.state.play
+      play: !this.state.play,
     });
     if (this.state.play === true) {
       this.state.song.pause();
     } else {
       this.state.song.play();
     }
-  }
 
-  songPlayed() {
-    this.setState({
-      currentTime: this.audio.currentTime()
-    })
+    // updates currentTime
+    setInterval(() => {this.setState({
+      currentTime: this.calculateCurrentTime(this.state.song.currentTime)
+    })}, 1000)
+
+    // if currentTime equals duration, player icon must change to play from pause
   }
 
   render() {
@@ -114,7 +124,7 @@ class MusicPlayer extends React.Component {
               wave={this.state.wave} 
               duration={this.state.duration}
               play={this.state.play}
-              songPlayed={this.songPlayed}
+              currentTime={this.state.currentTime}
             />
           </div>    
         </div>         
