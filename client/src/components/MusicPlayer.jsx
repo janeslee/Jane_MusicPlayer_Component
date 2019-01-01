@@ -7,16 +7,12 @@ import TimeAgo from 'react-timeago';
 
 var audio;
 
-const imagePaths = {
-  pauseButton: 'https://s3-us-west-1.amazonaws.com/democrituscloud/pause.png',
-  playButton: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png'
-}
-
 class MusicPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       'play': false,
+      'playerIcon': 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png',
       'album': '',
       'artist': '',
       'duration': 0,
@@ -38,14 +34,15 @@ class MusicPlayer extends React.Component {
     // calculates song length and puts it in the right format
     var minutes = Math.floor(length / 60);
     var seconds = (length - minutes * 60).toString().substr(0, 2);
-    var time = `${minutes}:${seconds}`;
+    var time = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
     return time;
   }
 
   calculateCurrentTime(currentTime) {
+    // calculates currentTime and puts it in the right format
     var currentMin = parseInt(currentTime / 60) % 60;
     var currentSec = (currentTime % 60).toFixed();
-    var currentTime = `${currentMin}:${currentSec < 10? "0" + currentSec : currentSec}`;
+    var currentTime = `${currentMin}:${currentSec < 10 ? '0' + currentSec : currentSec}`;
     return currentTime;
   }
 
@@ -55,7 +52,7 @@ class MusicPlayer extends React.Component {
       audio = new Audio(response.data['song_url']);
       audio.addEventListener('loadedmetadata', () => {
         this.setState({
-          duration: this.calculateTime(audio.duration)
+          duration: this.calculateTime(audio.duration + 1)
         });
       });
       this.setState({
@@ -83,18 +80,31 @@ class MusicPlayer extends React.Component {
     this.setState({
       play: !this.state.play,
     });
+
     if (this.state.play === true) {
-      this.state.song.pause();
+      audio.play();
+      this.setState({
+        playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/pause.png'
+      });
     } else {
-      this.state.song.play();
+      audio.pause();
+      this.setState({
+        playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png'
+      });
     }
 
-    // updates currentTime
-    setInterval(() => {this.setState({
-      currentTime: this.calculateCurrentTime(this.state.song.currentTime)
-    })}, 1000)
-
-    // if currentTime equals duration, player icon must change to play from pause
+    // updates currentTime and updates playerIcon when song ends
+    setInterval(() => {
+      this.setState({
+        currentTime: this.calculateCurrentTime(this.state.song.currentTime)
+      });
+      if (this.state.duration === this.calculateCurrentTime(this.state.song.currentTime)) {
+        audio.pause();
+        this.setState({
+          playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png'
+        })
+      }
+    }, 1000)
   }
 
   render() {
@@ -102,13 +112,7 @@ class MusicPlayer extends React.Component {
       <div>
         <div className={styles.MusicPlayer}>
           <div className={styles.ButtonArea}>
-            {
-              this.state.play
-              ?
-              <img className={styles.Button} src={imagePaths.pauseButton} onClick={this.clickHandler}/>
-              :
-              <img className={styles.Button} src={imagePaths.playButton} onClick={this.clickHandler}/>
-            }
+            <img className={styles.Button} src={this.state.playerIcon} onClick={this.clickHandler}/>
           </div>
           <div className={styles.SongInfoArea}>
             <div className={styles.ArtistAlbum}>{this.state.artist}</div>

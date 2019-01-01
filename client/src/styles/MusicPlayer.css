@@ -1,5 +1,5 @@
 .MusicPlayer {
-  background: linear-gradient(to right, rgb(167, 161, 161), rgb(70, 68, 68));
+  background: linear-gradient(to right, rgb(211, 173, 143), rgb(99, 81, 67));
   display: grid;
   grid-template-columns: 30px 10px 65px auto 150px 5px 350px 25px;
   grid-template-rows: 30px 65px 200px 80px 30px;
