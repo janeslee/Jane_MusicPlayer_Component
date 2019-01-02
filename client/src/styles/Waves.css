@@ -30,6 +30,10 @@
   }
 }
 
+.Bar:hover {
+  background: orange;
+}
+
 .Mirror {
   width: 3px;
   background: rgb(186, 184, 184);
