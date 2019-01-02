@@ -4,7 +4,7 @@
   position: relative;
 }
 
-.BarWrapper:not(:last-child):hover * {
+.BarWrapper:hover > .Bar {
   cursor: pointer;
   background: white;
 }
@@ -13,9 +13,9 @@
   display: flex;
 }
 
-/* .MirrorWrapper:hover {
+.MirrorWrapper:hover {
   cursor: pointer;
-} */
+}
 
 .Bar {
   width: 3px;
@@ -24,30 +24,8 @@
   margin-top: 1.3px;
 }
 
-@keyframes colorChange {
-  0% {
-      background: orange;    
-  }
-}
-
-.Bar:hover {
-  background: orange;
-}
-
 .Mirror {
   width: 3px;
   background: rgb(186, 184, 184);
   border-right: 0.1px solid grey;
-}
-
-.Duration {
-  transform: rotateX(180deg);
-  /* align-self: flex-start; */
-  background-color: rgba(0, 0, 0, 0.8);
-  color: rgb(204, 204, 204);
-  cursor: pointer;
-  font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Garuda", "Verdana", "Tahoma, sans-serif"; 
-  font-size: 12px;
-  position: absolute;
-  z-index: 1;
 }

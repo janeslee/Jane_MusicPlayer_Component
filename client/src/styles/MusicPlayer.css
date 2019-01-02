@@ -1,8 +1,8 @@
 .MusicPlayer {
   background: linear-gradient(to right, rgb(211, 173, 143), rgb(99, 81, 67));
   display: grid;
-  grid-template-columns: 30px 10px 65px auto 150px 5px 350px 25px;
-  grid-template-rows: 30px 65px 200px 80px 30px;
+  grid-template-columns: 30px 10px 65px 500px 150px 60px 350px 25px;
+  grid-template-rows: 30px 65px 200px 56px 30px 30px;
   min-width: 800px;
   max-width: 1200px;
   margin-top: 45px;
@@ -62,6 +62,7 @@
 }
 
 .Timestamp {
+  justify-items: flex-end;
   color: #fff;
   font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Garuda", "Verdana", "Tahoma, sans-serif"; 
   font-weight: 100;
@@ -72,7 +73,7 @@
   align-self: stretch;
   justify-self: stretch;
   grid-column: 7 / 8;
-  grid-row: 2 / 5;
+  grid-row: 2 / 6;
   cursor: pointer;
 }
 
@@ -81,7 +82,32 @@
   grid-row: 4 / 5;
 }
 
-.DurationWrapper {
-  grid-column: 3 / 4;
+.TimeWrapper {
+  grid-column: 2 / 6;
   grid-row: 4 / 5;
+  display: flex;
+  flex-direction: column;
+  align-self: end;
+}
+
+.Duration {
+  align-self: flex-end;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: rgb(204, 204, 204);
+  cursor: pointer;
+  font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Garuda", "Verdana", "Tahoma, sans-serif"; 
+  font-size: 11px;
+  position: absolute;
+  z-index: 1;
+}
+
+.CurrentTime {
+  align-self: flex-start;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: rgb(204, 204, 204);
+  cursor: pointer;
+  font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Garuda", "Verdana", "Tahoma, sans-serif"; 
+  font-size: 11px;
+  position: absolute;
+  z-index: 1;
 }

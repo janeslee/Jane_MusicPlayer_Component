@@ -126,15 +126,28 @@ class MusicPlayer extends React.Component {
           <div className={styles.ButtonArea}>
             <img className={styles.Button} src={this.state.playerIcon} onClick={this.clickHandler}/>
           </div>
+
           <div className={styles.SongInfoArea}>
             <div className={styles.ArtistAlbum}>{this.state.artist}</div>
             <div className={styles.Title}>{this.state.title}</div>
             <div className={styles.ArtistAlbum}>{this.state.album}</div>
           </div>
+
+          <img className={styles.Image} src={this.state.image}/>
+
           <div className={styles.TimeArea}>
             <TimeAgo date={this.state.released} className={styles.Timestamp}/>
           </div>
-          <img className={styles.Image} src={this.state.image}/>
+          
+          <div className={styles.TimeWrapper}>
+            <div className={styles.CurrentTime}> 
+              {this.state.currentTime}
+            </div>
+            <div className={styles.Duration}> 
+              {this.calculateTime(this.state.duration)}
+            </div>
+          </div>
+
           <div className={styles.Equalizer}>
             <Waves 
               wave={this.state.wave} 
@@ -145,7 +158,7 @@ class MusicPlayer extends React.Component {
               calculateTime={this.calculateTime}
               calculateCurrentTime={this.calculateCurrentTime}
             />
-          </div>    
+          </div>      
         </div>         
       </div>
     )
