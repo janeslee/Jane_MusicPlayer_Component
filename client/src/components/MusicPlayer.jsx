@@ -77,6 +77,21 @@ class MusicPlayer extends React.Component {
   }
 
   clickHandler(event) {
+    // updates currentTime and updates playerIcon when song ends
+    this.timer = setInterval(() => {
+      console.log('clicked once')
+      this.setState({
+        currentTime: this.calculateCurrentTime(this.state.song.currentTime)
+      });
+      if (this.calculateTime(this.state.duration) === this.calculateCurrentTime(this.state.song.currentTime)) {
+        audio.pause();
+        this.setState({
+          playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png',
+          play: false
+        })
+      }
+    }, 1000);
+
     // controls song play and pause
     this.setState({
       play: !this.state.play,
@@ -92,20 +107,8 @@ class MusicPlayer extends React.Component {
       this.setState({
         playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png'
       });
+      // clearInterval(this.timer);
     }
-
-    // updates currentTime and updates playerIcon when song ends
-    setInterval(() => {
-      this.setState({
-        currentTime: this.calculateCurrentTime(this.state.song.currentTime)
-      });
-      if (this.calculateTime(this.state.duration) === this.calculateCurrentTime(this.state.song.currentTime)) {
-        audio.pause();
-        this.setState({
-          playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png'
-        })
-      }
-    }, 1000);
   }
 
   skipToSegment(position) {
@@ -140,6 +143,7 @@ class MusicPlayer extends React.Component {
               currentTime={this.state.currentTime}
               skipToSegment={this.skipToSegment}
               calculateTime={this.calculateTime}
+              calculateCurrentTime={this.calculateCurrentTime}
             />
           </div>    
         </div>         

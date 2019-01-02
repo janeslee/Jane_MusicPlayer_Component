@@ -4,21 +4,22 @@
   position: relative;
 }
 
-.BarWrapper:hover {
+.BarWrapper:not(:last-child):hover * {
   cursor: pointer;
+  background: white;
 }
 
 .MirrorWrapper {
   display: flex;
 }
 
-.MirrorWrapper:hover {
+/* .MirrorWrapper:hover {
   cursor: pointer;
-}
+} */
 
 .Bar {
   width: 3px;
-  background: whitesmoke;
+  background: rgb(216, 215, 215);
   border-right: 0.1px solid grey;
   margin-top: 1.3px;
 }
@@ -29,13 +30,9 @@
   }
 }
 
-.Bar:hover {
-  background: orange;
-}
-
 .Mirror {
   width: 3px;
-  background: whitesmoke;
+  background: rgb(186, 184, 184);
   border-right: 0.1px solid grey;
 }
 
