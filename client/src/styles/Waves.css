@@ -1,7 +1,6 @@
 .BarWrapper {
   display: flex;
   transform: rotateX(180deg);
-  position: relative;
 }
 
 .BarWrapper:hover > .Bar {
@@ -15,6 +14,20 @@
 
 .MirrorWrapper:hover {
   cursor: pointer;
+}
+
+.AnimatedBar {
+  width: 3px;
+  border-right: 0.1px solid grey;
+  margin-top: 1.3px;
+  background: purple;
+  animation: mymove 1s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 10px;}
 }
 
 .Bar {

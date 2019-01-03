@@ -29,6 +29,7 @@ class MusicPlayer extends React.Component {
     this.fetchSong = this.fetchSong.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
     this.skipToSegment = this.skipToSegment.bind(this);
+    this.stopMusic = this.stopMusic.bind(this);
   }
 
   calculateTime(length) {
@@ -47,7 +48,20 @@ class MusicPlayer extends React.Component {
     return currentTime;
   }
 
+  stopMusic() {
+    audio.pause();
+    clearInterval(this.timer);
+    this.setState({
+      play: false,
+      playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png',
+    });
+  }
+
   fetchSong() {
+    // if(this.state.play) {
+    //   this.stopMusic();
+    // }
+
     axios.get(`/api/jane/player/${this.state.id}`)
     .then((response) => { 
       audio = new Audio(response.data['song_url']);
@@ -64,7 +78,8 @@ class MusicPlayer extends React.Component {
         released: response.data.released,
         song: audio,
         title: response.data.title,
-        wave: response.data.wave.split(',')
+        wave: response.data.wave.split(','),
+        play: !this.state.play
       });
     })
     .catch((error) => {
@@ -77,21 +92,6 @@ class MusicPlayer extends React.Component {
   }
 
   clickHandler(event) {
-    // updates currentTime and updates playerIcon when song ends
-    this.timer = setInterval(() => {
-      console.log('clicked once')
-      this.setState({
-        currentTime: this.calculateCurrentTime(this.state.song.currentTime)
-      });
-      if (this.calculateTime(this.state.duration) === this.calculateCurrentTime(this.state.song.currentTime)) {
-        audio.pause();
-        this.setState({
-          playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png',
-          play: false
-        })
-      }
-    }, 1000);
-
     // controls song play and pause
     this.setState({
       play: !this.state.play,
@@ -102,12 +102,27 @@ class MusicPlayer extends React.Component {
       this.setState({
         playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/pause.png'
       });
+      
+      // updates currentTime and updates playerIcon when song ends
+      this.timer = setInterval(() => {
+        this.setState({
+          currentTime: this.calculateCurrentTime(this.state.song.currentTime)
+        });
+        if (this.calculateTime(this.state.duration) === this.calculateCurrentTime(this.state.song.currentTime)) {
+          this.stopMusic();
+          this.setState({
+            playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png',
+            play: false
+          });
+          clearInterval(this.timer);
+        }
+      }, 1000);
     } else {
       audio.pause();
       this.setState({
         playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png'
       });
-      // clearInterval(this.timer);
+      clearInterval(this.timer);
     }
   }
 
