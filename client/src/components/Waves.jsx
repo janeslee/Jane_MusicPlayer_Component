@@ -4,22 +4,20 @@ import styles from '../styles/Waves.css';
 class Waves extends React.Component {
   constructor(props) {
     super(props);
-    // this.changeColor = this.changeColor.bind(this);
+    //needs to make a state to keep track of hovering: mouseEnter?
+      //hovering effect only affects top wave
+      //hovering background effect only active when song is playing
+        //when hovering left or right, changes to lighter shade of orange
+      //currentTime stamp changes time accordingly when hovering while song is playing
+    this.state = {
+      hover: false
+    }
+    this.hovered = this.hovered.bind(this);
   }
 
-// if props.state.play === true
-//   wave form changes color to orange every second
-//   if hovering over wave, change color to lighter orange
-// if props.state.play === false
-//   hovering over wave, change color to white
-// if song has ended
-//   wave changes from orange to white
-
-changeColor(play) {
-  if (this.props.play === true) {
-
+  hovered() {
+    console.log('this is hovered');
   }
-}
 
   render() {
     return (
@@ -27,17 +25,21 @@ changeColor(play) {
         <div className={styles.BarWrapper}>
           {this.props.wave.map((data, i) => {
             // not hovering over wave forms. playing
-            if (this.props.play && this.props.currentTime === i) {
-              return ( 
-                <div 
-                  key={i} 
-                  className={styles.AnimatedBar}
-                  style={{height: data, animationDuration: `${this.props.duration}s`}}
-                  onClick={() => this.props.skipToSegment(i)}
-                  >
-                </div>
-              )
-            } else if (this.props.currentTime > i) {
+            // if (this.props.play && this.props.currentTime > i) {
+            //   console.log('this is currentTime in wave comp', this.props.currentTime)
+            //   console.log('is it true', this.props.currentTime === i)
+            //   return ( 
+            //     <div 
+            //       key={i} 
+            //       className={styles.AnimatedBar}
+            //       style={{height: data, animationDuration: `${this.props.duration}s`}}
+            //       onClick={() => this.props.skipToSegment(i)}
+            //       onMouseEnter={this.hovered}
+            //       >
+            //     </div>
+            //   )
+            // }
+            if (this.props.currentTime > i) {
               // played
               return ( 
                 <div 
@@ -65,17 +67,18 @@ changeColor(play) {
 
         <div className={styles.MirrorWrapper}>
           {this.props.wave.map((data, i) => {
-            // playing
-            if (this.props.play && this.props.currentTime === i) {
-              return ( 
-                <div 
-                  key={i} 
-                  className={styles.AnimatedMirror} 
-                  style={{height: data / 3, animationDuration: `${this.props.duration}s`}}
-                  >
-                </div>
-              )
-            } else if (this.props.currentTime > i) {
+            // // playing
+            // if (this.props.play && this.props.currentTime === i) {
+            //   return ( 
+            //     <div 
+            //       key={i} 
+            //       className={styles.AnimatedMirror} 
+            //       style={{height: data / 3, animationDuration: `${this.props.duration}s`}}
+            //       >
+            //     </div>
+            //   )
+            // } 
+            if (this.props.currentTime > i) {
               // played
               return ( 
                 <div 

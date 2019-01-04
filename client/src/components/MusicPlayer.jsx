@@ -16,8 +16,8 @@ class MusicPlayer extends React.Component {
       'album': '',
       'artist': '',
       'duration': 0,
-      'currentTime': '',
-      'id': 1,
+      'currentTime': 0,
+      'id': 88,
       'image': '',
       'released': '',
       'song': '',
@@ -53,8 +53,7 @@ class MusicPlayer extends React.Component {
       audio = new Audio(response.data['song_url']);
       audio.addEventListener('loadedmetadata', () => {
         this.setState({
-          duration: audio.duration,
-          currentTime: Math.floor(audio.currentTime * 241 / audio.duration)
+          duration: audio.duration + 1
         });
       });
       this.setState({
@@ -92,14 +91,11 @@ class MusicPlayer extends React.Component {
       
       // updates currentTime and updates playerIcon when song ends
       this.timer = setInterval(() => {
-        console.log('this is currentTime in this.timer before', this.state.currentTime)
         this.setState({
-          currentTime: this.state.currentTime + 1
+          currentTime: audio.currentTime
         });
-        console.log('this is currentTime in this.timer after', this.state.currentTime)
 
-        if (this.calculateTime(this.state.duration) === this.calculateCurrentTime(this.state.currentTime)) {
-          audio.pause();
+        if (audio.ended) {
           this.setState({
             playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png',
             play: false
