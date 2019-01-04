@@ -12,11 +12,11 @@
   width: 3px;
   border-right: 1px solid grey;
   margin-top: 1.3px;
-  animation-name: mymosve;
+  animation-name: orangeWave;
   animation-timing-function: linear;
 }
 
-@keyframes mymove {
+@keyframes orangeWave {
   0% {
     background: rgb(186, 184, 184);
   }
@@ -27,7 +27,7 @@
 
 .Bar {
   width: 3px;
-  background: rgb(186, 184, 184);
+  background: rgb(213, 211, 211);
   border-right: 1px solid grey; /*og border 0.1px */
   margin-top: 1.3px;
 }
@@ -43,5 +43,12 @@
 .Mirror {
   width: 3px;
   background: rgb(186, 184, 184);
-  border-right: 0.1px solid grey;
+  border-right: 1px solid grey;
+}
+
+.AnimatedMirror {
+  width: 3px;
+  border-right: 1px solid grey;
+  animation-name: orangeWave;
+  animation-timing-function: linear;
 }

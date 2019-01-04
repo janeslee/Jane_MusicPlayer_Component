@@ -26,13 +26,13 @@ changeColor(play) {
       <div>
         <div className={styles.BarWrapper}>
           {this.props.wave.map((data, i) => {
-            // not hovering over wave forms. song is playing
+            // not hovering over wave forms. playing
             if (this.props.play && this.props.currentTime === i) {
               return ( 
                 <div 
                   key={i} 
                   className={styles.AnimatedBar}
-                  style={{height: data, animationDuration: `${this.props.duration / 241}s`}}
+                  style={{height: data, animationDuration: `${this.props.duration}s`}}
                   onClick={() => this.props.skipToSegment(i)}
                   >
                 </div>
@@ -64,15 +64,40 @@ changeColor(play) {
         </div>
 
         <div className={styles.MirrorWrapper}>
-          {this.props.wave.map((data, i) => 
-            <div 
-              key={i} 
-              className={styles.Mirror} 
-              style={{ height: data / 3 }}
-              >
-            </div>
-          )}
-        </div>
+          {this.props.wave.map((data, i) => {
+            // playing
+            if (this.props.play && this.props.currentTime === i) {
+              return ( 
+                <div 
+                  key={i} 
+                  className={styles.AnimatedMirror} 
+                  style={{height: data / 3, animationDuration: `${this.props.duration}s`}}
+                  >
+                </div>
+              )
+            } else if (this.props.currentTime > i) {
+              // played
+              return ( 
+                <div 
+                  key={i} 
+                  className={styles.Mirror} 
+                  style={{height: data / 3, background: 'linear-gradient(#f7b589, #f7b4a3)'}}
+                  >
+                </div>
+              )
+            } else {
+              // not played
+              return (
+                <div 
+                  key={i}
+                  className={styles.Mirror} 
+                  style={{height: data / 3}}
+                  >
+                </div> 
+              )
+            }
+          })}
+          </div>
       </div>
     )
   }
