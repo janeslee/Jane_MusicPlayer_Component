@@ -3,9 +3,33 @@
   transform: rotateX(180deg);
 }
 
-.BarWrapper:hover > .Bar {
+.BarWrapper:hover > * {
   cursor: pointer;
   background: white;
+}
+
+.AnimatedBar {
+  width: 3px;
+  border-right: 1px solid grey;
+  margin-top: 1.3px;
+  animation-name: mymosve;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  0% {
+    background: rgb(186, 184, 184);
+  }
+  100% {
+    background: #ff3500;
+  }
+}
+
+.Bar {
+  width: 3px;
+  background: rgb(186, 184, 184);
+  border-right: 1px solid grey; /*og border 0.1px */
+  margin-top: 1.3px;
 }
 
 .MirrorWrapper {
@@ -14,27 +38,6 @@
 
 .MirrorWrapper:hover {
   cursor: pointer;
-}
-
-.AnimatedBar {
-  width: 3px;
-  border-right: 0.1px solid grey;
-  margin-top: 1.3px;
-  background: purple;
-  animation: mymove 1s;
-  animation-timing-function: linear;
-}
-
-@keyframes mymove {
-  from {left: 0px;}
-  to {left: 10px;}
-}
-
-.Bar {
-  width: 3px;
-  background: rgb(216, 215, 215);
-  border-right: 0.1px solid grey;
-  margin-top: 1.3px;
 }
 
 .Mirror {

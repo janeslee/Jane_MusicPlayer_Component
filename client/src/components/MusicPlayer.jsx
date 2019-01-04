@@ -29,7 +29,6 @@ class MusicPlayer extends React.Component {
     this.fetchSong = this.fetchSong.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
     this.skipToSegment = this.skipToSegment.bind(this);
-    this.stopMusic = this.stopMusic.bind(this);
   }
 
   calculateTime(length) {
@@ -48,26 +47,14 @@ class MusicPlayer extends React.Component {
     return currentTime;
   }
 
-  stopMusic() {
-    audio.pause();
-    clearInterval(this.timer);
-    this.setState({
-      play: false,
-      playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png',
-    });
-  }
-
   fetchSong() {
-    // if(this.state.play) {
-    //   this.stopMusic();
-    // }
-
     axios.get(`/api/jane/player/${this.state.id}`)
     .then((response) => { 
       audio = new Audio(response.data['song_url']);
       audio.addEventListener('loadedmetadata', () => {
         this.setState({
-          duration: audio.duration
+          duration: audio.duration,
+          currentTime: Math.floor(audio.currentTime * 241 / audio.duration)
         });
       });
       this.setState({
@@ -78,8 +65,7 @@ class MusicPlayer extends React.Component {
         released: response.data.released,
         song: audio,
         title: response.data.title,
-        wave: response.data.wave.split(','),
-        play: !this.state.play
+        wave: response.data.wave.split(',')
       });
     })
     .catch((error) => {
@@ -93,23 +79,27 @@ class MusicPlayer extends React.Component {
 
   clickHandler(event) {
     // controls song play and pause
-    this.setState({
-      play: !this.state.play,
-    });
+    // this.setState({
+    //   play: !this.state.play,
+    // });
 
-    if (this.state.play === true) {
+    if (!this.state.play) {
       audio.play();
       this.setState({
-        playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/pause.png'
+        playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/pause.png',
+        play: true
       });
       
       // updates currentTime and updates playerIcon when song ends
       this.timer = setInterval(() => {
+        console.log('this is currentTime in this.timer before', this.state.currentTime)
         this.setState({
-          currentTime: this.calculateCurrentTime(this.state.song.currentTime)
+          currentTime: this.state.currentTime + 1
         });
-        if (this.calculateTime(this.state.duration) === this.calculateCurrentTime(this.state.song.currentTime)) {
-          this.stopMusic();
+        console.log('this is currentTime in this.timer after', this.state.currentTime)
+
+        if (this.calculateTime(this.state.duration) === this.calculateCurrentTime(this.state.currentTime)) {
+          audio.pause();
           this.setState({
             playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png',
             play: false
@@ -120,7 +110,8 @@ class MusicPlayer extends React.Component {
     } else {
       audio.pause();
       this.setState({
-        playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png'
+        playerIcon: 'https://s3-us-west-1.amazonaws.com/democrituscloud/play.png',
+        play: false
       });
       clearInterval(this.timer);
     }
@@ -128,9 +119,10 @@ class MusicPlayer extends React.Component {
 
   skipToSegment(position) {
     // jump to a new segment in the song based on the position in the wave form
+    // divide the duration by number of bars in the wave
     audio.currentTime = position * (this.state.duration / 241);
     this.setState({
-      currentTime: this.calculateCurrentTime(audio.currentTime)
+      currentTime: audio.currentTime
     });
   }
 
@@ -156,7 +148,7 @@ class MusicPlayer extends React.Component {
           
           <div className={styles.TimeWrapper}>
             <div className={styles.CurrentTime}> 
-              {this.state.currentTime}
+              {this.calculateCurrentTime(this.state.currentTime)}
             </div>
             <div className={styles.Duration}> 
               {this.calculateTime(this.state.duration)}

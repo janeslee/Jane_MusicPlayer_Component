@@ -24,41 +24,52 @@ changeColor(play) {
   render() {
     return (
       <div>
-               {console.log('this is play status', this.props.play)}
-
         <div className={styles.BarWrapper}>
           {this.props.wave.map((data, i) => {
-            if (this.props.play === true) {
+            // not hovering over wave forms. song is playing
+            if (this.props.play && this.props.currentTime === i) {
               return ( 
                 <div 
-                  className={styles.Bar} 
                   key={i} 
-                  style={{ height: data }}
+                  className={styles.AnimatedBar}
+                  style={{height: data, animationDuration: `${this.props.duration / 241}s`}}
+                  onClick={() => this.props.skipToSegment(i)}
+                  >
+                </div>
+              )
+            } else if (this.props.currentTime > i) {
+              // played
+              return ( 
+                <div 
+                  key={i} 
+                  className={styles.Bar} 
+                  style={{height: data, background: 'linear-gradient(#ff6400, #ff3500)'}}
                   onClick={() => this.props.skipToSegment(i)}
                   >
                 </div>
               )
             } else {
-              return ( 
+              // not played
+              return (
                 <div 
-                  className={styles.AnimatedBar} 
-                  key={i} 
-                  style={{ height: data }}
+                  key={i}
+                  className={styles.Bar} 
+                  style={{height: data}}
                   onClick={() => this.props.skipToSegment(i)}
                   >
-                </div>
+               </div> 
               )
             }
-        })}
+          })}
         </div>
 
         <div className={styles.MirrorWrapper}>
           {this.props.wave.map((data, i) => 
             <div 
-            className={styles.Mirror} 
-            key={i} 
-            style={{ height: data / 3 }}
-            >
+              key={i} 
+              className={styles.Mirror} 
+              style={{ height: data / 3 }}
+              >
             </div>
           )}
         </div>
