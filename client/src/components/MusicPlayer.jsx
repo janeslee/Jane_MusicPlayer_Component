@@ -48,7 +48,15 @@ class MusicPlayer extends React.Component {
   }
 
   fetchSong() {
-    axios.get(`/api/jane/player/${this.state.id}`)
+    var id = window.location.pathname.slice(1, window.location.pathname.length - 1);
+
+    if (id) {
+      id = Number(id);
+    } else {
+      id = this.state.id;
+    }
+
+    axios.get(`/api/jane/player/${id}`)
     .then((response) => { 
       audio = new Audio(response.data['song_url']);
       audio.addEventListener('loadedmetadata', () => {
