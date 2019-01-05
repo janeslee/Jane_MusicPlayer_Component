@@ -17,7 +17,7 @@ class MusicPlayer extends React.Component {
       'artist': '',
       'duration': 0,
       'currentTime': 0,
-      'id': 88,
+      'id': 61,
       'image': '',
       'released': '',
       'song': '',
