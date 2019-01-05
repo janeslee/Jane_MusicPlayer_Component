@@ -7,9 +7,11 @@ const server = express();
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
-server.use(express.static(path.join(__dirname, '/../client/dist')));
+// server.use(express.static(path.join(__dirname, '/../client/dist')));
+server.use('/', express.static('./client/dist/'));
+server.use(/\/\d+\//, express.static('./client/dist/'));
 
-server.listen(3000, () => { console.log('listening to port 3000'); });
+server.listen(5000, () => { console.log('listening to port 5000'); });
 
 // GET request to fetch a new song data from db
 // let id;
