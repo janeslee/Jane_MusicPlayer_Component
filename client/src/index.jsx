@@ -2,4 +2,4 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MusicPlayer from './components/MusicPlayer.jsx';
 
-ReactDOM.render(<MusicPlayer />, document.getElementById('root'));
+ReactDOM.render(<MusicPlayer />, document.getElementById('MusicPlayer'));
