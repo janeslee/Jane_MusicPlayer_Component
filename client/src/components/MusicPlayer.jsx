@@ -72,7 +72,7 @@ class MusicPlayer extends React.Component {
         released: response.data.released,
         song: audio,
         title: response.data.title,
-        wave: response.data.wave.split(',')
+        wave: response.data.wave
       });
     })
     .catch((error) => {
