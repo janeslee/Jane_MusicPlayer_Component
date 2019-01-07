@@ -2,6 +2,9 @@
   "name": "jane_player_component",
   "version": "1.0.0",
   "description": "FEC",
+  "engines": {
+    "node": ">=6.13.0"
+  },
   "main": "index.js",
   "scripts": {
     "build": "webpack -d --watch",
