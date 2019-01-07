@@ -1,6 +1,6 @@
-function defaultTask(cb) {
-  // example
-  cb();
-}
+// function defaultTask(cb) {
+//   // example
+//   cb();
+// }
 
-exports.default = defaultTask
+// exports.default = defaultTask

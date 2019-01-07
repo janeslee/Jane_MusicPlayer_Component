@@ -14,7 +14,7 @@ var allowCORS = (req, res, next) => {
   next();
 };
 
-app.use(allowCORS);
+server.use(allowCORS);
 
 // server.use(express.static(path.join(__dirname, '/../client/dist')));
 server.use('/', express.static('./client/dist/'));
