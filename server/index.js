@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const db = require('../database/index');
+const port = process.env.PORT || 8000;
 
 const server = express();
 server.use(bodyParser.json());
@@ -11,7 +12,7 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use('/', express.static('./client/dist/'));
 server.use(/\/\d+\//, express.static('./client/dist/'));
 
-server.listen(8000, () => { console.log('listening to port 8000'); });
+server.listen(port, () => { console.log(`listening to ${port}`); });
 
 // GET request to fetch a new song data from db
 server.get('/api/jane/player/:id', (req, res) => {
