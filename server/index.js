@@ -8,6 +8,14 @@ const server = express();
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
+var allowCORS = (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+};
+
+app.use(allowCORS);
+
 // server.use(express.static(path.join(__dirname, '/../client/dist')));
 server.use('/', express.static('./client/dist/'));
 server.use(/\/\d+\//, express.static('./client/dist/'));
